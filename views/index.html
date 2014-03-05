@@ -1,0 +1,11 @@
+<% layout('layout.html') -%>
+<header class="page-header">
+    <h1>Admin</h1>
+</header>
+<ul class="list-unstyled">
+<% models.forEach(function(model){%>
+    <li>
+        <h2><a href="<%= url(model.name) %>"><%= model.name %></a> <span class="text-muted"><%= model.count %> documents</span></h2>
+    </li>
+<% }) %>
+</ul>

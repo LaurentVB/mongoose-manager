@@ -1,0 +1,73 @@
+<% layout('layout.html') -%>
+
+<style>
+    .filters {
+        padding: 10px 0;
+        margin-bottom: 20px;
+        background: rgb(238, 238, 238);
+    }
+</style>
+
+<header class="page-header">
+    <h1><a href="<%= url() %>">Admin</a> / <%= model.modelName %></h1>
+</header>
+
+<% if (documents.length) { %>
+
+<section class="filters clearfix">
+    <form role="form" class="col-md-6 search-form">
+        <div class="form-group">
+            <label for="search-term"><span class="glyphicon glyphicon-search"></span> Search</label>
+            <div class="input-group" class="col-md-4">
+                <input type="search" id="search-term" name="q" class="form-control" value="<%=: q | empty %>">
+                <span class="input-group-btn">
+                    <a href="<%= url(model.modelName) %>" class="btn btn-primary reset"><span class="glyphicon glyphicon-remove"></span></a>
+                </span>
+            </div>
+        </div>
+    </form>
+</section>
+
+<form method="post">
+    <section class="actions btn-toolbar">
+        <div class="btn-group">
+<% Object.keys(actions).forEach(function(action){%>
+            <button type="submit" class="btn btn-default" name="action" value="<%= action %>"><%=: action | capitalize %></button>
+<% }) %>
+            <a href="#bulk-edit" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+            <button type="submit" class="btn btn-danger" name="_method" value="DELETE"><span class="glyphicon glyphicon-remove"></span> Remove</button>
+        </div>
+
+        <div class="btn-group pull-right">
+            <a href="<%= url(model.modelName, 'new') %>" class="btn btn-primary">Create a new <%= model.modelName %></a>
+        </div>
+    </section>
+
+    <p class="text-center">Showing records <%= skip + 1 %> - <%= Math.min (skip + pageSize, count) %> of <%= count %></p>
+    <%- include pagination.html %>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th style="width: 20px; text-align: center"></th>
+                <% fields.forEach(function(field){ %>
+                    <th><%= field %></th>
+                <% }) %>
+            </tr>
+        </thead>
+        <tbody>
+            <% documents.forEach(function(document){ %>
+            <tr>
+                <td><input type="checkbox" name="ids[]" value="<%= document._id %>"></td>
+                <% fields.forEach(function(field){ %>
+                    <td><a href="<%= url(model.modelName, document._id) %>"><%= tableFormat(field, document) %></a></td>
+                <% }) %>
+            </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</form>
+    <%- include pagination.html %>
+<% } else { %>
+    <p>No <%= model.modelName %> yet. <a href="<%= url(model.modelName, 'new') %>">Create a new one</a></p>
+<% } %>

@@ -1,0 +1,17 @@
+<% layout('layout.html') -%>
+
+<header class="page-header">
+    <% if (document._id) { %>
+    <h1><a href="<%= url() %>">Admin</a> / <a href="<%= url(model.modelName) %>"><%= model.modelName %></a> / Edit <span class="text-muted"><%=: document._id %></span></h1>
+    <% } else { %>
+    <h1><a href="<%= url() %>">Admin</a> / <a href="<%= url(model.modelName) %>"><%= model.modelName %></a> / New</h1>
+    <% } %>
+</header>
+<form class="form col-md-6" method="post" action="<%= url(model.modelName, document._id) %>">
+    <% fields.forEach(function(field){ %>
+    <div class="form-group">
+        <% include partials/form-fields.html %>
+    </div>
+    <% }) %>
+    <button type="submit" class="btn btn-primary" name="_method" value="<%= document._id ? 'PUT' : 'POST' %>">Save <%= model.modelName%></button> or <a href="<%= url(model.modelName) %>">cancel</a>
+</form>

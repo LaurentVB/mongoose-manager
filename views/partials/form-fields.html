@@ -1,0 +1,19 @@
+<%
+    var f = document.schema.paths[field] || document.schema.virtuals[field],
+        name = f.options.type.name;
+%>
+<% if (name == 'Boolean') { %>
+<% include ../fields/Boolean.html %>
+<% } %>
+<% if (name == 'Date') { %>
+<% include ../fields/Date.html %>
+<% } %>
+<% if (name == 'Number') { %>
+<% include ../fields/Number.html %>
+<% } %>
+<% if (name == 'String') { %>
+<% include ../fields/String.html %>
+<% } %>
+<% if (name == 'ObjectId') { %>
+<% include ../fields/ObjectId.html %>
+<% } %>

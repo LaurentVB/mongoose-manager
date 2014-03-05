@@ -1,0 +1,13 @@
+[
+    {
+        "_id": "100000000000000000000001",
+        "name": "HIStory: Past, Present and Future, Book I",
+        "published": "1995-07-16",
+        "artist": "000000000000000000000002"
+    },
+    {
+        "_id": "100000000000000000000002",
+        "name": "Record without artist",
+        "artist": "000000000000000000000002"
+    }
+]

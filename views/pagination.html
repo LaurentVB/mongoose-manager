@@ -1,0 +1,29 @@
+<%
+    var lastPage = Math.floor((count - 1) / pageSize) + 1,
+        i = 1;
+    if (lastPage > 1) {
+%>
+
+<ul class="pagination">
+
+<% if (page === 1) { %>
+    <li class="disabled"><a href="#">&laquo;</a></li>
+<% } else { %>
+    <li><a href="?page=<%= page - 1 %>">&laquo;</a></li>
+<% } %>
+
+<% for (;i <= lastPage; i++){ %>
+    <li class="<%= i==page ? 'active' : '' %>"><a href="?page=<%= i %>"><%= i %></a></li>
+<% } %>
+
+<% if (page == lastPage){%>
+    <li class="disabled"><a href="#">&raquo;</a></li>
+<% } else {%>
+    <li><a href="?page=<%= page + 1 %>">&raquo;</a></li>
+<% } %>
+
+</ul>
+<%
+}
+%>
+</section>

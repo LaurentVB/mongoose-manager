@@ -1,0 +1,23 @@
+[
+    {
+        "_id": "000000000000000000000001",
+        "name": "Elton John",
+        "birthDate": "1947-03-25",
+        "wonGrammy": true,
+        "label": "300000000000000000000001"
+    },
+    {
+        "_id": "000000000000000000000002",
+        "name": "Michael Jackson",
+        "birthDate": "1958-08-29",
+        "deathDate": "2009-06-25",
+        "wonGrammy": true
+    },
+    {
+        "_id": "000000000000000000000003",
+        "name": "Bob Marley",
+        "birthDate": "1945-02-06",
+        "deathDate": "1981-05-11",
+        "wonGrammy": true
+    }
+]

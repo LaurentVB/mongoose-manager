@@ -1,0 +1,22 @@
+{
+  "name": "mongoose-manager",
+  "version": "0.0.0",
+  "scripts": {
+    "example": "supervisor --force-watch -i public example/app.js"
+  },
+  "dependencies": {
+    "express": "3",
+    "ejs": "0.8",
+    "ejs-locals": "1.0",
+    "underscore": "1.5",
+    "moment": "2.2",
+    "async": "0.2"
+  },
+  "devDependencies": {
+    "mongoose": "3.8",
+    "supervisor": "~0.5.7"
+  },
+  "repository": "https://github.com/LaurentVB/mongoose-manager",
+  "author": "Laurent VB",
+  "license": "MIT"
+}

@@ -1,0 +1,13 @@
+<label for="field-<%=field %>"><%= field %></label>
+<% if (references[field]){ %>
+<select name="<%= field %>" id="field-<%=field %>" class="form-control">
+    <% if (!document.schema.paths[field].options.required){ %>
+    <option value=""></option>
+    <% } %>
+    <% references[field].forEach(function(model){ %>
+    <option value="<%= model._id %>" <%= document[field] && model._id.equals(document[field]._id) ? ' selected' : '' %>><%= model %></option>
+    <% }) %>
+</select>
+<% } else { %>
+<input name="<%= field %>" id="field-<%= field %>" type="text" value="<%= document[field] ? (document[field]._id || document[field]) : '' %>" class="form-control">
+<% } %>
