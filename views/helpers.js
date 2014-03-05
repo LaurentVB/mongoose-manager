@@ -8,7 +8,7 @@ var helpers = {
     moment: moment
 };
 
-module.exports.init = function(){
+module.exports.init = function(admin){
 
     return function(req, res, next){
 
@@ -39,6 +39,20 @@ module.exports.init = function(){
             }
 
             return value;
+        };
+
+        res.locals.label = function(document, modelName){
+            var labelField;
+            if (labelField = admin.getModel(modelName).label){
+                return _.isFunction(labelField) ? labelField(document) : document[labelField];
+            }
+            if ('label' in document.schema.paths && document.schema.paths.label.options.type == String){
+                return document.label;
+            }
+            if ('name' in document.schema.paths && document.schema.paths.name.options.type == String){
+                return document.name;
+            }
+            return document;
         };
 
         res.locals = _.extend(res.locals, helpers);

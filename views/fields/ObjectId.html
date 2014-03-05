@@ -5,7 +5,7 @@
     <option value=""></option>
     <% } %>
     <% references[field].forEach(function(model){ %>
-    <option value="<%= model._id %>" <%= document[field] && model._id.equals(document[field]._id) ? ' selected' : '' %>><%= model %></option>
+    <option value="<%= model._id %>" <%= document[field] && model._id.equals(document[field]._id) ? ' selected' : '' %>><%= label(model, document.schema.paths[field].options.ref) %></option>
     <% }) %>
 </select>
 <% } else { %>
