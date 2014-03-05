@@ -38,6 +38,10 @@ module.exports.init = function(admin){
                 return moment(value).format('YYYY/MM/DD hh:mm:ss');
             }
 
+            if (field.options && field.options.type.name == 'ObjectId'){
+                return res.locals.label(value, field.options.ref);
+            }
+
             return value;
         };
 
