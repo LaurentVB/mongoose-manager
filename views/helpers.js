@@ -43,7 +43,7 @@ module.exports.init = function(admin){
 
         res.locals.label = function(document, modelName){
             var labelField;
-            if (labelField = admin.getModel(modelName).label){
+            if (labelField = admin.models[modelName].label){
                 return _.isFunction(labelField) ? labelField(document) : document[labelField];
             }
             if ('label' in document.schema.paths && document.schema.paths.label.options.type == String){
