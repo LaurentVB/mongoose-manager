@@ -12,6 +12,14 @@
     <!-- Select boxes -->
     <link href="//cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.min.css" rel="stylesheet">
 
+    <style>
+        .array-field {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 10px;
+        }
+    </style>
+
 </head>
 <body>
 
@@ -26,19 +34,10 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.min.js"></script>
 
+<script src="<%= url() %>js/admin.js"></script>
+
 <script>
-    $(function(){
-        if (!Modernizr.inputtypes.date){
-            $('input[type="date"]')
-                    .wrap('<div class="input-group date"></div>')
-                    .after('<a class="btn input-group-addon"><span class="glyphicon glyphicon-calendar"></span></a>')
-                    .parents('.date')
-                    .datepicker({
-                        format: 'yyyy-mm-dd'
-                    });
-        }
-        $("select.autocomplete").select2();
-    });
+
 </script>
 </body>
 </html>
