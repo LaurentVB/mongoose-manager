@@ -1,8 +1,8 @@
 <%
     var embeddedName = type[0].name;
 %>
-<label data-toggle="collapse" data-target="list-<%= field %>"><%= field %></label>
-<div class="array-field">
+<label class="collapsible" data-toggle="collapse" data-target="#list-container-<%= field %>"><%= field %></label>
+<div id="list-container-<%= field %>" class="array-field collapse in">
 <%
     // store backup of document
     var _document_backup = document,
@@ -34,7 +34,7 @@
     document = _document_backup;
 %>
 
-<ol id="list-<%= field %>" data-template="list-<%= field %>-item-template" class="list-unstyled collapse in">
+<ol data-template="list-<%= field %>-item-template" class="list-unstyled">
     <% if (document[field]){ %>
         <% document[field].forEach(function(document, i){ %>
         <li class="form-group">
