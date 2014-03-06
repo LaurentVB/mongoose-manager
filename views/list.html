@@ -60,7 +60,7 @@
             <tr>
                 <td><input type="checkbox" name="ids[]" value="<%= document._id %>"></td>
                 <% fields.forEach(function(field){ %>
-                    <td><a href="<%= url(model.modelName, document._id) %>"><%= tableFormat(field, document) %></a></td>
+                    <td><a href="<%= url(model.modelName, document._id) %>" title="<%= tableFormat(field, document) %>"><%= tableFormat(field, document, 50) %></a></td>
                 <% }) %>
             </tr>
             <% }) %>

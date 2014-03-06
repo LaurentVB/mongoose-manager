@@ -24,7 +24,7 @@ module.exports.init = function(admin){
 
         res.locals.req = req;
 
-        res.locals.tableFormat = function(fieldName, document){
+        res.locals.tableFormat = function(fieldName, document, maxLength){
             var value = document[fieldName],
                 field = utils.getField(document, fieldName);
 
@@ -44,6 +44,10 @@ module.exports.init = function(admin){
                 return res.locals.label(value, field.options.ref);
             }
 
+            value = value.toString();
+            if (maxLength && value.length > maxLength){
+                value = value.substring(0, maxLength) + '&hellip;';
+            }
             return value;
         };
 
