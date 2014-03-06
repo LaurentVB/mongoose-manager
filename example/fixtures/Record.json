@@ -3,11 +3,38 @@
         "_id": "100000000000000000000001",
         "name": "HIStory: Past, Present and Future, Book I",
         "published": "1995-07-16",
-        "artist": "000000000000000000000002"
-    },
-    {
-        "_id": "100000000000000000000002",
-        "name": "Record without artist",
-        "artist": "000000000000000000000002"
+        "artist": "000000000000000000000002",
+        "songs": [
+            "Billie Jean",
+            "The Way You Make Me Feel",
+            "Black or White",
+            "Rock with You",
+            "She's Out of My Life",
+            "Bad",
+            "I Just Can't Stop Loving You",
+            "Man in the Mirror",
+            "Thriller",
+            "Beat It",
+            "The Girl Is Mine",
+            "Remember the Time",
+            "Don't Stop 'Til You Get Enough",
+            "Wanna Be Startin' Somethin'",
+            "Heal the World",
+            "Scream",
+            "They Don't Care About Us",
+            "Stranger in Moscow",
+            "This Time Around",
+            "Earth Song",
+            "D.S.",
+            "Money",
+            "Come Together",
+            "You Are Not Alone",
+            "Childhood",
+            "Tabloid Junkie",
+            "2 Bad",
+            "HIStory",
+            "Little Susie",
+            "Smile"
+        ]
     }
 ]

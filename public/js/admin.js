@@ -14,10 +14,10 @@ $(function(){
         return false;
     });
     $(document).on('click', '[href^="#add-item"]', function(){
-        var $ul = $(this).parents('ul'),
-            templateId = $ul.data('template'),
-            i = $ul.find('.form-group').length,
+        var $ol = $(this).siblings('ol'),
+            templateId = $ol.data('template'),
+            i = $ol.find('.form-group').length,
             html = $('#' + templateId).text().replace('{{i}}', i);
-        $('#' + $ul.attr('id') + ' .add-item').before(html);
+        $ol.append(html);
     });
 });
