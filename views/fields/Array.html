@@ -1,7 +1,8 @@
 <%
     var embeddedName = type[0].name;
 %>
-<label class="collapsible" data-toggle="collapse" data-target="#list-container-<%= field %>"><%= field %></label>
+<label class="collapsible" data-toggle="collapse" data-target="#list-container-<%= field %>"><%= field %>
+    <span class="text-muted"><span class="count"><%= document[field] ? document[field].length : '0'%></span> items</span></label>
 <div id="list-container-<%= field %>" class="array-field collapse in">
 <%
     // store backup of document
