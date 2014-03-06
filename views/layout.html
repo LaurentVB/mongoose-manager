@@ -20,9 +20,18 @@
         }
         .collapsible:before {
             content: '\25BC';
+            display: inline-block;
+            -webkit-transition: .35s ease;
+            -moz-transition: .35s ease;
+            -o-transition: .35s ease;
+            transition: .35s ease;
         }
         .collapsible.collapsed:before {
-            content: '\25BA';
+            -webkit-transform: rotate(-90deg);
+            -moz-transform: rotate(-90deg);
+            -o-transform: rotate(-90deg);
+            -ms-transform: rotate(-90deg);
+            transform: rotate(-90deg);
         }
     </style>
 
