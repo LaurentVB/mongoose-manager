@@ -2,7 +2,7 @@
   "name": "mongoose-manager",
   "version": "0.1.0",
   "scripts": {
-    "example": "supervisor --force-watch -i public example/app.js"
+    "example": "supervisor --force-watch -i public,views example/app.js"
   },
   "dependencies": {
     "express": "3",
