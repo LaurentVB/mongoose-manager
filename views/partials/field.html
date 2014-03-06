@@ -1,0 +1,19 @@
+<%
+var type = getField(document, field).options.type,
+name = type.name;
+%>
+<div class="form-group">
+    <% if (name == 'Boolean') { %>
+    <% include ../fields/Boolean.html %>
+    <% } else if (name == 'Date') { %>
+    <% include ../fields/Date.html %>
+    <% } else if (name == 'Number') { %>
+    <% include ../fields/Number.html %>
+    <% } else if (name == 'String') { %>
+    <% include ../fields/String.html %>
+    <% } else if (name == 'ObjectId') { %>
+    <% include ../fields/ObjectId.html %>
+    <% } else if (_.isArray(type)) { %>
+    <% include ../fields/Array.html %>
+    <% } %>
+</div>

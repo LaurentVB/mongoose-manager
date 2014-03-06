@@ -1,0 +1,63 @@
+<%
+    var embeddedName = type[0].name;
+%>
+<label data-toggle="collapse" data-target="list-<%= field %>"><%= field %></label>
+
+<%
+    // store backup of document
+    var _document_backup = document,
+        i = '{{i}}';
+    document = null;
+%>
+<script id="list-<%= field %>-item-template" type="text/template">
+    <li class="form-group">
+        <div class="input-group">
+            <% if (embeddedName == 'Boolean') { %>
+            <% include ./Boolean.html %>
+            <% } else if (embeddedName == 'Date') { %>
+            <% include ./Date.html %>
+            <% } else if (embeddedName == 'Number') { %>
+            <% include ./Number.html %>
+            <% } else if (embeddedName == 'String') { %>
+            <% include ../array-fields/String.html %>
+            <% } else if (embeddedName == 'ObjectId') { %>
+            <% include ./ObjectId.html %>
+            <% } %>
+            <span class="input-group-btn">
+                <a class="btn btn-danger" href="#remove-item"><span class="glyphicon glyphicon-remove"></span></a>
+            </span>
+        </div>
+    </li>
+</script>
+<%
+    // restore document
+    document = _document_backup;
+%>
+
+<ul id="list-<%= field %>" data-template="list-<%= field %>-item-template" class="list-unstyled array-field collapse in">
+    <% if (document[field]){ %>
+        <% document[field].forEach(function(document, i){ %>
+        <li class="form-group">
+            <div class="input-group">
+                <% if (embeddedName == 'Boolean') { %>
+                <% include ./Boolean.html %>
+                <% } else if (embeddedName == 'Date') { %>
+                <% include ./Date.html %>
+                <% } else if (embeddedName == 'Number') { %>
+                <% include ./Number.html %>
+                <% } else if (embeddedName == 'String') { %>
+                <% include ../array-fields/String.html %>
+                <% } else if (embeddedName == 'ObjectId') { %>
+                <% include ./ObjectId.html %>
+                <% } %>
+                <span class="input-group-btn">
+                    <a class="btn btn-danger" href="#remove-item"><span class="glyphicon glyphicon-remove"></span></a>
+                </span>
+            </div>
+        </li>
+        <% }) %>
+    <% } %>
+    <li class="add-item">
+        <a href="#add-item"><span class="glyphicon glyphicon-plus"></span> Add item</a>
+    </li>
+</ul>
