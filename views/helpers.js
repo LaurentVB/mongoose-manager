@@ -65,6 +65,10 @@ module.exports.init = function(admin){
             return document;
         };
 
+        res.locals.noColon = function(word, replacement){
+            return word.replace(/\./g, replacement || '_');
+        };
+
         res.locals = _.extend(res.locals, helpers);
 
         next();

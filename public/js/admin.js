@@ -20,9 +20,9 @@ $(function(){
 
     $(document).on('click', '[href^="#add-item"]', function(){
         var $ol = $(this).siblings('ol'),
-            templateId = $ol.data('template'),
+            templateSelector = $ol.data('template'),
             i = $ol.find('.form-group').length,
-            html = $('#' + templateId).text().replace('{{i}}', i);
+            html = $(templateSelector).text().replace('{{i}}', i);
         $ol.append(html);
         updateCount($ol);
         return false;

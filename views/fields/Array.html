@@ -10,7 +10,7 @@
         i = '{{i}}';
     document = null;
 %>
-<script id="list-<%= field %>-item-template" type="text/template">
+<script id="list-<%= noColon(field) %>-item-template" type="text/template">
     <li class="form-group">
         <div class="input-group">
             <% if (embeddedName == 'Boolean') { %>
@@ -35,7 +35,7 @@
     document = _document_backup;
 %>
 
-<ol data-template="list-<%= field %>-item-template" class="list-unstyled">
+<ol data-template="#list-<%= noColon(field) %>-item-template" class="list-unstyled">
     <% if (document[field]){ %>
         <% document[field].forEach(function(document, i){ %>
         <li class="form-group">
