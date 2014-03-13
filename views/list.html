@@ -12,22 +12,48 @@
     <h1><a href="<%= url() %>">Admin</a> / <%= model.modelName %></h1>
 </header>
 
-<% if (documents.length) { %>
 
 <section class="filters clearfix">
-    <form role="form" class="col-md-6 search-form">
-        <div class="form-group">
-            <label for="search-term"><span class="glyphicon glyphicon-search"></span> Search</label>
-            <div class="input-group" class="col-md-4">
-                <input type="search" id="search-term" name="q" class="form-control" value="<%=: q | empty %>">
-                <span class="input-group-btn">
-                    <a href="<%= url(model.modelName) %>" class="btn btn-primary reset"><span class="glyphicon glyphicon-remove"></span></a>
-                </span>
+    <div class="clearfix">
+        <form role="form" class="col-md-6 search-form">
+            <div class="form-group">
+                <label for="search-term"><span class="glyphicon glyphicon-search"></span> Search</label>
+                <div class="input-group">
+                    <input type="search" id="search-term" name="q" class="form-control" value="<%=: q | empty %>" placeholder="Your search term">
+                    <span class="input-group-btn">
+                        <a href="<%= url(model.modelName) %>" class="btn btn-primary reset"><span class="glyphicon glyphicon-remove"></span></a>
+                    </span>
+                </div>
             </div>
+        </form>
+    </div>
+    <div>
+        <div class="col-md-6">
+            <a href="#advanced-search" data-toggle="collapse" data-target="#advanced-search">Advanced search</a>
+            <form id="advanced-search" role="form" class="search-form collapse <%= where ? 'in' : '' %>">
+                <div class="form-group <%= errors.where ? 'has-error' : '' %>">
+                    <label for="search-term" class="sr-only">Mongoose where clause</label>
+                    <div class="input-group">
+                        <input type="search" id="where-clause" name="where" class="form-control" value="<%=: where | empty %>" placeholder="Mongoose where clause">
+                        <span class="input-group-btn">
+                            <a href="<%= url(model.modelName) %>" class="btn btn-primary reset"><span class="glyphicon glyphicon-remove"></span></a>
+                        </span>
+                    </div>
+                    <% if (errors.where) { %>
+                    <span class="help-block has-error"><%= errors.where %></span>
+                    <% } %>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary">Search</button>
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
 </section>
 
+<% if (typeof documents == 'undefined') { %>
+    <p>Could not execute search. Please correct error above</p>
+<% } else if (documents.length) { %>
 <form method="post">
     <section class="actions btn-toolbar">
         <div class="btn-group">
