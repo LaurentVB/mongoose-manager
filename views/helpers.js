@@ -22,6 +22,14 @@ module.exports.init = function(admin){
         res.locals.url = require('../lib/utils').url.bind(res.locals, req);
         res.locals.getField = require('../lib/utils').getField;
 
+        res.locals.readOnly = function(document, fieldName){
+            if (!utils.isVirtual(document, fieldName)){
+                return false;
+            }
+            var field = res.locals.getField(document, fieldName);
+            return (!field.setters || !field.setters.length);
+        };
+
         res.locals.req = req;
 
         res.locals.tableFormat = function(fieldName, document, maxLength){

@@ -11,7 +11,13 @@ var models = [
         // the name of the property to be used as label when an Artist is displayed embedded in another document
         label: 'name'
     },
-    require('./models/Label').Label,
+    {
+        model: require('./models/Label').Label,
+        fields: [
+            'name',
+            'creationDate'
+        ]
+    },
     require('./models/Record').Record
 ];
 

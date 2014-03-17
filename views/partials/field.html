@@ -1,6 +1,6 @@
 <%
-var type = getField(document, field).options.type,
-name = type.name;
+    var type = getField(document, field).options.type,
+    name = type ? type.name : 'String';
 %>
 <div class="form-group">
     <% if (name == 'Boolean') { %>
