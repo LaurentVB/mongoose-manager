@@ -6,41 +6,56 @@
         margin-bottom: 20px;
         background: rgb(238, 238, 238);
     }
+
+    .ASC:after,
+    .DESC:after {
+        display: inline-block;
+        padding: 0 5px;
+    }
+    .ASC:after {
+        content: '\25BE';
+    }
+    .DESC:after {
+        content: '\25B4';
+    }
 </style>
 
 <header class="page-header">
     <h1><a href="<%= url() %>">Admin</a> / <%= model.modelName %></h1>
 </header>
 
-
 <section class="filters clearfix">
     <div class="clearfix">
-        <form role="form" class="col-md-6 search-form">
-            <div class="form-group">
-                <label for="search-term"><span class="glyphicon glyphicon-search"></span> Search</label>
-                <div class="input-group">
-                    <input type="search" id="search-term" name="q" class="form-control" value="<%=: q | empty %>" placeholder="Your search term">
-                    <span class="input-group-btn">
-                        <a href="<%= url(model.modelName) %>" class="btn btn-primary reset"><span class="glyphicon glyphicon-remove"></span></a>
-                    </span>
+        <div class="col-md-6">
+            <form role="form" class="search-form">
+                <%-: search.with('q', null).with('where', null) | formInput %>
+                <div class="form-group">
+                    <label for="search-term"><span class="glyphicon glyphicon-search"></span> Search</label>
+                    <div class="input-group">
+                        <input type="search" id="search-term" name="q" class="form-control" value="<%=: search.criteria.q | empty %>" placeholder="Your search term">
+                        <span class="input-group-btn">
+                            <a href="<%=: search.with('q', null) | queryString %>" class="btn btn-primary reset"><span class="glyphicon glyphicon-remove"></span></a>
+                        </span>
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
     <div>
         <div class="col-md-6">
             <a href="#advanced-search" data-toggle="collapse" data-target="#advanced-search">Advanced search</a>
-            <form id="advanced-search" role="form" class="search-form collapse <%= where ? 'in' : '' %>">
-                <div class="form-group <%= errors.where ? 'has-error' : '' %>">
+            <form id="advanced-search" role="form" class="search-form collapse <%= search.criteria.where ? 'in' : '' %>">
+                <%-: search.with('q', null).with('where', null) | formInput %>
+                <div class="form-group <%= search.errors.where ? 'has-error' : '' %>">
                     <label for="search-term" class="sr-only">Mongoose where clause</label>
                     <div class="input-group">
-                        <input type="search" id="where-clause" name="where" class="form-control" value="<%=: where | empty %>" placeholder="Mongoose where clause">
+                        <input type="search" id="where-clause" name="where" class="form-control" value="<%=: search.criteria.where | empty %>" placeholder="Mongoose where clause">
                         <span class="input-group-btn">
-                            <a href="<%= url(model.modelName) %>" class="btn btn-primary reset"><span class="glyphicon glyphicon-remove"></span></a>
+                            <a href="<%=: search.with('where', null) | queryString %>" class="btn btn-primary reset"><span class="glyphicon glyphicon-remove"></span></a>
                         </span>
                     </div>
-                    <% if (errors.where) { %>
-                    <span class="help-block has-error"><%= errors.where %></span>
+                    <% if (search.errors.where) { %>
+                    <span class="help-block has-error"><%= search.errors.where %></span>
                     <% } %>
                 </div>
                 <div class="form-group">
@@ -51,9 +66,9 @@
     </div>
 </section>
 
-<% if (typeof documents == 'undefined') { %>
+<% if (!search.documents) { %>
     <p>Could not execute search. Please correct error above</p>
-<% } else if (documents.length) { %>
+<% } else if (search.documents.length) { %>
 <form method="post">
     <section class="actions btn-toolbar">
         <div class="btn-group">
@@ -69,7 +84,7 @@
         </div>
     </section>
 
-    <p class="text-center">Showing records <%= skip + 1 %> - <%= Math.min (skip + pageSize, count) %> of <%= count %></p>
+    <p class="text-center">Showing records <%= search.criteria.skip + 1 %> - <%= Math.min (search.criteria.skip + search.options.pageSize, search.count) %> of <%= search.count %></p>
     <%- include pagination.html %>
 
     <table class="table table-hover">
@@ -77,12 +92,16 @@
             <tr>
                 <th style="width: 20px; text-align: center"></th>
                 <% fields.forEach(function(field){ %>
-                    <th><%= field %></th>
+                    <% if (isVirtual(model, field)){ %>
+                        <th><%= field %></th>
+                    <% } else { %>
+                        <th><a href="<%=: search.with('sortField', field).with('sortDir', search.toggleSortDir(field)) | queryString %>" class="<%= search.currentSortDir(field) %>"><%= field %></a></th>
+                    <% } %>
                 <% }) %>
             </tr>
         </thead>
         <tbody>
-            <% documents.forEach(function(document){ %>
+            <% search.documents.forEach(function(document){ %>
             <tr>
                 <td><input type="checkbox" name="ids[]" value="<%= document._id %>"></td>
                 <% fields.forEach(function(field){ %>

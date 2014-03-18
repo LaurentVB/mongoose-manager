@@ -21,12 +21,13 @@ module.exports.init = function(admin){
          */
         res.locals.url = require('../lib/utils').url.bind(res.locals, req);
         res.locals.getField = require('../lib/utils').getField;
+        res.locals.isVirtual = require('../lib/utils').isVirtual;
 
-        res.locals.readOnly = function(document, fieldName){
-            if (!utils.isVirtual(document, fieldName)){
+        res.locals.readOnly = function(model, fieldName){
+            if (!utils.isVirtual(model, fieldName)){
                 return false;
             }
-            var field = res.locals.getField(document, fieldName);
+            var field = utils.getField(model, fieldName);
             return (!field.setters || !field.setters.length);
         };
 

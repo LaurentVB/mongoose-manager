@@ -31,4 +31,8 @@ $(function(){
     function updateCount($list){
         $list.parents('.array-field').siblings('label').find('.count').text($list.find('li').length);
     }
+
+    $(document).on('click', '[href^="#advanced-search"]', function(){
+        return false;
+    });
 });
