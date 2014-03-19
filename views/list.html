@@ -1,7 +1,7 @@
 <% layout('layout.html') -%>
 
 <style>
-    .filters {
+    .search {
         padding: 10px 0;
         margin-bottom: 20px;
         background: rgb(238, 238, 238);
@@ -9,14 +9,21 @@
 
     .ASC:after,
     .DESC:after {
+        position: relative;
+        top: 2px;
         display: inline-block;
-        padding: 0 5px;
+        font-family: 'Glyphicons Halflings';
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1;
+        padding: 0 2px;
+        font-size: 12px;
     }
     .ASC:after {
-        content: '\25BE';
+        content: '\e093';
     }
     .DESC:after {
-        content: '\25B4';
+        content: '\e094';
     }
 </style>
 
@@ -24,46 +31,8 @@
     <h1><a href="<%= url() %>">Admin</a> / <%= model.modelName %></h1>
 </header>
 
-<section class="filters clearfix">
-    <div class="clearfix">
-        <div class="col-md-6">
-            <form role="form" class="search-form">
-                <%-: search.with('q', null).with('where', null) | formInput %>
-                <div class="form-group">
-                    <label for="search-term"><span class="glyphicon glyphicon-search"></span> Search</label>
-                    <div class="input-group">
-                        <input type="search" id="search-term" name="q" class="form-control" value="<%=: search.criteria.q | empty %>" placeholder="Your search term">
-                        <span class="input-group-btn">
-                            <a href="<%=: search.with('q', null) | queryString %>" class="btn btn-primary reset"><span class="glyphicon glyphicon-remove"></span></a>
-                        </span>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-    <div>
-        <div class="col-md-6">
-            <a href="#advanced-search" data-toggle="collapse" data-target="#advanced-search">Advanced search</a>
-            <form id="advanced-search" role="form" class="search-form collapse <%= search.criteria.where ? 'in' : '' %>">
-                <%-: search.with('q', null).with('where', null) | formInput %>
-                <div class="form-group <%= search.errors.where ? 'has-error' : '' %>">
-                    <label for="search-term" class="sr-only">Mongoose where clause</label>
-                    <div class="input-group">
-                        <input type="search" id="where-clause" name="where" class="form-control" value="<%=: search.criteria.where | empty %>" placeholder="Mongoose where clause">
-                        <span class="input-group-btn">
-                            <a href="<%=: search.with('where', null) | queryString %>" class="btn btn-primary reset"><span class="glyphicon glyphicon-remove"></span></a>
-                        </span>
-                    </div>
-                    <% if (search.errors.where) { %>
-                    <span class="help-block has-error"><%= search.errors.where %></span>
-                    <% } %>
-                </div>
-                <div class="form-group">
-                    <button class="btn btn-primary">Search</button>
-                </div>
-            </form>
-        </div>
-    </div>
+<section class="search clearfix">
+    <%= include partials/search.html %>
 </section>
 
 <% if (!search.documents) { %>
@@ -95,7 +64,7 @@
                     <% if (isVirtual(model, field)){ %>
                         <th><%= field %></th>
                     <% } else { %>
-                        <th><a href="<%=: search.with('sortField', field).with('sortDir', search.toggleSortDir(field)) | queryString %>" class="<%= search.currentSortDir(field) %>"><%= field %></a></th>
+                        <th><a href="<%=: search.with('sortField', field).with('sortDir', search.toggleSortDir(field)) | queryString %>" title="<%= search.currentSortDir(field) %>" class="<%= search.currentSortDir(field) %>"><%= field %></a></th>
                     <% } %>
                 <% }) %>
             </tr>
