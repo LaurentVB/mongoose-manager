@@ -21,10 +21,10 @@ module.exports.init = function(admin){
          */
         res.locals.url = require('../lib/utils').url.bind(res.locals, req);
         res.locals.getField = require('../lib/utils').getField;
-        res.locals.isVirtual = require('../lib/utils').isVirtual;
+        res.locals.utils = require('../lib/utils');
 
         res.locals.readOnly = function(model, fieldName){
-            if (!utils.isVirtual(model, fieldName)){
+            if (utils.isNotVirtual(model, fieldName)){
                 return false;
             }
             var field = utils.getField(model, fieldName);
@@ -33,23 +33,26 @@ module.exports.init = function(admin){
 
         res.locals.req = req;
 
-        res.locals.tableFormat = function(fieldName, document, maxLength){
-            var value = document[fieldName],
-                field = utils.getField(document, fieldName);
+        res.locals.tableValueFormat = function(value, fieldName, document, maxLength){
+            var field = utils.getField(document, fieldName);
 
             if (!field) {
                 throw new Error('Unknown field %s in model %s', fieldName, document.schema.modelName);
+            }
+
+            if (utils.isBoolean(field)){
+                return value;
             }
 
             if (!value){
                 return '';
             }
 
-            if (field.options && field.options.type == Date){
+            if (utils.isDate(field)){
                 return moment(value).format('YYYY/MM/DD hh:mm:ss');
             }
 
-            if (field.options && field.options.ref){
+            if (utils.isRef(field)){
                 return res.locals.label(value, field.options.ref);
             }
 
@@ -58,6 +61,10 @@ module.exports.init = function(admin){
                 value = value.substring(0, maxLength) + '&hellip;';
             }
             return value;
+        };
+
+        res.locals.tableFormat = function(fieldName, document, maxLength){
+            return res.locals.tableValueFormat(document[fieldName], fieldName, document, maxLength);
         };
 
         res.locals.label = function(document, modelName){

@@ -61,7 +61,7 @@
             <tr>
                 <th style="width: 20px; text-align: center"></th>
                 <% fields.forEach(function(field){ %>
-                    <% if (isVirtual(model, field)){ %>
+                    <% if (utils.isVirtual(model, field)){ %>
                         <th><%= field %></th>
                     <% } else { %>
                         <th><a href="<%=: search.with('sortField', field).with('sortDir', search.toggleSortDir(field)) | queryString %>" title="<%= search.currentSortDir(field) %>" class="<%= search.currentSortDir(field) %>"><%= field %></a></th>

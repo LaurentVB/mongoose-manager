@@ -1,39 +1,49 @@
 <div class="clearfix">
     <div class="col-md-6">
         <form role="form" class="search-form">
-            <%-: search.with('q', null).with('where', null) | formInput %>
+            <%-: search.without('q').without('where') | formInput %>
             <div class="form-group">
                 <label for="search-term"><span class="glyphicon glyphicon-search"></span> Search</label>
                 <div class="input-group">
                     <input type="search" id="search-term" name="q" class="form-control" value="<%=: search.criteria.q | empty %>" placeholder="Your search term">
-                        <span class="input-group-btn">
-                            <a href="<%=: search.with('q', null) | queryString %>" class="btn btn-primary reset"><span class="glyphicon glyphicon-remove"></span></a>
-                        </span>
+                    <span class="input-group-btn">
+                        <a href="<%=: search.without('where').without('q') | queryString %>" class="btn btn-primary reset"><span class="glyphicon glyphicon-remove"></span></a>
+                    </span>
                 </div>
             </div>
         </form>
     </div>
 </div>
 <div>
-    <div class="col-md-6">
+    <div class="col-md-12">
         <a href="#advanced-search" data-toggle="collapse" data-target="#advanced-search">Advanced search</a>
-        <form id="advanced-search" role="form" class="search-form collapse <%= search.criteria.where ? 'in' : '' %>">
-            <%-: search.with('q', null).with('where', null) | formInput %>
-            <div class="form-group <%= search.errors.where ? 'has-error' : '' %>">
-                <label for="search-term" class="sr-only">Mongoose where clause</label>
-                <div class="input-group">
-                    <input type="search" id="where-clause" name="where" class="form-control" value="<%=: search.criteria.where | empty %>" placeholder="Mongoose where clause">
-                        <span class="input-group-btn">
-                            <a href="<%=: search.with('where', null) | queryString %>" class="btn btn-primary reset"><span class="glyphicon glyphicon-remove"></span></a>
-                        </span>
-                </div>
-                <% if (search.errors.where) { %>
-                <span class="help-block has-error"><%= search.errors.where %></span>
-                <% } %>
-            </div>
-            <div class="form-group">
-                <button class="btn btn-primary">Search</button>
-            </div>
-        </form>
     </div>
+    <section id="advanced-search" class="collapse <%= search.criteria.where ? 'in' : '' %>">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <form role="form" class="search-form">
+                        <%-: search.without('q').without('where') | formInput %>
+                        <div class="form-group <%= search.errors.where ? 'has-error' : '' %>">
+                            <label for="search-term" class="sr-only">Mongoose where clause</label>
+                            <div class="input-group">
+                                <input type="search" id="where-clause" name="where" class="form-control" value="<%=: search.criteria.where | empty %>" placeholder="Mongoose where clause">
+                                <span class="input-group-btn">
+                                    <a href="<%=: search.without('where').without('q') | queryString %>" class="btn btn-primary reset"><span class="glyphicon glyphicon-remove"></span></a>
+                                </span>
+                            </div>
+                            <% if (search.errors.where) { %>
+                            <span class="help-block has-error"><%= search.errors.where %></span>
+                            <% } %>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="facets">
+            <div class="col-md-12">
+                <progress class="col-md-6">Loading facets&hellip;</progress>
+            </div>
+        </div>
+    </section>
 </div>

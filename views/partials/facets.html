@@ -1,0 +1,32 @@
+<%
+    var facetClass;
+    switch (facets.length) {
+        case 1:
+            facetClass = 'col-md-12';
+            break;
+        case 2:
+            facetClass = 'col-md-6';
+            break;
+        case 3:
+            facetClass = 'col-md-4';
+            break;
+        case 4:
+            facetClass = 'col-md-3';
+            break;
+        default:
+            facetClass = 'col-md-2'
+    }
+%>
+<% facets.forEach(function(facet){ %>
+<div class="<%= facetClass %>">
+    <h4><%= facet.key %></h4>
+    <ul class="list-unstyled">
+        <% if (utils.isNullable(getField(model, facet.key))) { %>
+        <li><a href="<%=: search.with(facet.key, utils.EMPTY) | queryString %>"><em>**Empty**</em></a></li>
+        <% } %>
+        <% facet.values.forEach(function(value){ %>
+        <li><a href="<%=: search.with(facet.key, value.raw) | queryString %>"><%= tableValueFormat(value.display, facet.key, model, 30) %></a></li>
+        <% }) %>
+    </ul>
+</div>
+<% }) %>

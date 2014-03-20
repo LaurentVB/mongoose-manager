@@ -32,7 +32,26 @@ $(function(){
         $list.parents('.array-field').siblings('label').find('.count').text($list.find('li').length);
     }
 
+    var facetsLoaded = false;
     $(document).on('click', '[href^="#advanced-search"]', function(){
+        loadFacets();
         return false;
     });
+
+    if ($('#advanced-search').is('.in')){
+        loadFacets();
+    }
+
+    function loadFacets(){
+        if (!facetsLoaded){
+            var url = window.location.toString();
+            url = url.split('/');
+            url.splice(-1, 0, 'facets');
+            url = url.join('/');
+            $.get(url).done(function(data){
+                facetsLoaded = true;
+                $('.facets').html(data);
+            });
+        }
+    }
 });
