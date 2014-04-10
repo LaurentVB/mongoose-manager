@@ -16,6 +16,13 @@
 </div>
 <div>
     <div class="col-md-12">
+        <ul class="selected-facets list-inline">
+        <% search.eachCriteria(function(key, value){ %>
+            <li><a href="<%=: search.without(key, value) | queryString %>" class="label label-default"><%= key %>: <%= value %> <span class="glyphicon glyphicon-remove"></span></a></li>
+        <% }) %>
+        </ul>
+    </div>
+    <div class="col-md-12">
         <a href="#advanced-search" data-toggle="collapse" data-target="#advanced-search">Advanced search</a>
     </div>
     <section id="advanced-search" class="collapse <%= search.criteria.where ? 'in' : '' %>">
