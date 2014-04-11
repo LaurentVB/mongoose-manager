@@ -5,11 +5,16 @@ var Admin = require('../lib/admin').Admin,
 
 mongoose.connect('mongodb://localhost:27017/admin-example');
 
+var Artist = require('./models/Artist').Artist;
+
 var models = [
     {
-        model: require('./models/Artist').Artist,
+        model: Artist,
         // the name of the property to be used as label when an Artist is displayed embedded in another document
-        label: 'name'
+        label: 'name',
+        actions: {
+            'Toggle grammy': toggleGrammy
+        }
     },
     {
         model: require('./models/Label').Label,
@@ -20,6 +25,16 @@ var models = [
     },
     require('./models/Record').Record
 ];
+
+function toggleGrammy(req, res, next){
+    var ids = req.body.ids;
+    Artist.find().where('_id').in(ids).exec(function(err, artists){
+        async.each(artists, function(artist, cb){
+            artist.wonGrammy = !artist.wonGrammy;
+            artist.save(cb);
+        }, next);
+    });
+}
 
 var admin = new Admin(models, {
     pageSize: 20
