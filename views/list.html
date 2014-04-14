@@ -38,7 +38,7 @@
 <% if (!search.documents) { %>
     <p>Could not execute search. Please correct error above</p>
 <% } else if (search.documents.length) { %>
-<form method="post" action="/actions/<%= model.modelName %>">
+<form method="post" action="<%= url('actions', model.modelName) %>">
     <section class="actions btn-toolbar">
         <div class="btn-group actions-on-selected">
 <% actions.forEach(function(action){%>
