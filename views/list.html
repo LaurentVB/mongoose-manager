@@ -40,7 +40,7 @@
 <% } else if (search.documents.length) { %>
 <form method="post">
     <section class="actions btn-toolbar">
-        <div class="btn-group">
+        <div class="btn-group actions-on-selected">
 <% Object.keys(actions).forEach(function(action){%>
             <button type="submit" class="btn btn-default" name="action" value="<%= action %>"><%=: action | capitalize %></button>
 <% }) %>
@@ -59,10 +59,10 @@
         of <%= search.count %></p>
     <%- include pagination.html %>
 
-    <table class="table table-hover">
+    <table class="table table-hover documents">
         <thead>
             <tr>
-                <th style="width: 20px; text-align: center"></th>
+                <th style="width: 20px; text-align: center"><input type="checkbox" class="toggle-select-all" title="Select/Deselect all"></th>
                 <% fields.forEach(function(field){ %>
                     <% if (utils.isVirtual(model, field)){ %>
                         <th><%= field %></th>

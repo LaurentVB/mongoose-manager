@@ -1,4 +1,8 @@
 $(function(){
+
+    // from http://davidwalsh.name/javascript-debounce-function
+    function debounce(a,b,c){var d;return function(){var e=this,f=arguments;clearTimeout(d),d=setTimeout(function(){d=null,c||a.apply(e,f)},b),c&&!d&&a.apply(e,f)}}
+
     if (!Modernizr.inputtypes.date){
         $('input[type="date"]')
             .wrap('<div class="input-group date"></div>')
@@ -54,4 +58,20 @@ $(function(){
             });
         }
     }
+
+    $(document).on('change', 'input[type="checkbox"].toggle-select-all', function(){
+        var $this = $(this);
+        $('table.documents').find('tbody input[type="checkbox"][name="ids[]"]').prop('checked', $this.prop('checked'));
+    });
+
+    $(document).on('change', 'input[type="checkbox"]', debounce(disableButtons, 50));
+
+    function disableButtons(){
+        var disabled = $('table.documents').find('tbody input[type="checkbox"][name="ids[]"]:checked').length == 0;
+        $('.actions-on-selected .btn')
+            .prop('disabled', disabled)
+            .toggleClass('disabled', disabled);
+    }
+
+    disableButtons();
 });
