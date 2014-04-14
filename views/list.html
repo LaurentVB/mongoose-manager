@@ -38,14 +38,12 @@
 <% if (!search.documents) { %>
     <p>Could not execute search. Please correct error above</p>
 <% } else if (search.documents.length) { %>
-<form method="post">
+<form method="post" action="/actions/<%= model.modelName %>">
     <section class="actions btn-toolbar">
         <div class="btn-group actions-on-selected">
-<% Object.keys(actions).forEach(function(action){%>
-            <button type="submit" class="btn btn-default" name="action" value="<%= action %>"><%=: action | capitalize %></button>
+<% actions.forEach(function(action){%>
+            <button type="submit" class="btn btn-default btn-action-<%= action.action %> <%=: action.btnClass | empty %>" name="action" value="<%= action.action %>"><%=: action.action | capitalize %></button>
 <% }) %>
-            <a href="#bulk-edit" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
-            <button type="submit" class="btn btn-danger" name="_method" value="DELETE"><span class="glyphicon glyphicon-remove"></span> Remove</button>
         </div>
 
         <div class="btn-group pull-right">

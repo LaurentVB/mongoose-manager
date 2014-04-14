@@ -12,9 +12,12 @@ var models = [
         model: Artist,
         // the name of the property to be used as label when an Artist is displayed embedded in another document
         label: 'name',
-        actions: {
-            'Toggle grammy': toggleGrammy
-        }
+        actions: [
+            {
+                action: 'Toggle grammy',
+                fn: toggleGrammy
+            }
+        ]
     },
     {
         model: require('./models/Label').Label,
