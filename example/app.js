@@ -15,7 +15,8 @@ var models = [
         actions: [
             {
                 action: 'Toggle grammy',
-                fn: toggleGrammy
+                fn: toggleGrammy,
+                btnIcon: 'glyphicon-thumbs-up'
             }
         ]
     },
