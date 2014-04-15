@@ -10,7 +10,9 @@
     "ejs-locals": "1.0",
     "underscore": "1.5",
     "moment": "2.2",
-    "async": "0.2"
+    "async": "0.2",
+    "connect-flash": "^0.1.1",
+    "pluralize": "0.0.9"
   },
   "devDependencies": {
     "mongoose": "3.8",

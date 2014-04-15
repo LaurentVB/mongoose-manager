@@ -60,8 +60,9 @@ $(function(){
     }
 
     $(document).on('change', 'input[type="checkbox"].toggle-select-all', function(){
-        var $this = $(this);
-        $('table.documents').find('tbody input[type="checkbox"][name="ids[]"]').prop('checked', $this.prop('checked'));
+        $('table.documents')
+            .find('tbody input[type="checkbox"][name="ids[]"]')
+            .prop('checked', $(this).prop('checked'));
     });
 
     $(document).on('change', 'input[type="checkbox"]', debounce(disableButtons, 50));
@@ -74,4 +75,8 @@ $(function(){
     }
 
     disableButtons();
+
+    setTimeout(function(){
+        $('.notifications .alert').fadeOut();
+    }, 3000);
 });

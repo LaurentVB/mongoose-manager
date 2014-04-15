@@ -1,6 +1,7 @@
 var Admin = require('../lib/admin').Admin,
     express = require('express'),
     mongoose = require('mongoose'),
+    pluralize = require('pluralize'),
     async = require('async');
 
 mongoose.connect('mongodb://localhost:27017/admin-example');
@@ -36,7 +37,16 @@ function toggleGrammy(req, res, next){
         async.each(artists, function(artist, cb){
             artist.wonGrammy = !artist.wonGrammy;
             artist.save(cb);
-        }, next);
+        }, function(err){
+            if (err) return err;
+
+            req.flash('notification', {
+                level: 'success',
+                text: 'Toggled grammy of ' + pluralize('artist', artists.length, true)
+            });
+
+            next();
+        });
     });
 }
 

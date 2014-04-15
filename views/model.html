@@ -7,6 +7,9 @@
     <h1><a href="<%= url() %>">Admin</a> / <a href="<%= url(model.modelName) %>"><%= model.modelName %></a> / New</h1>
     <% } %>
 </header>
+
+<%= include partials/messages.html %>
+
 <form class="form col-md-6" method="post" action="<%= url(model.modelName, document._id) %>">
     <%- partial('partials/field.html', fields) %>
     <div class="form-group">

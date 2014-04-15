@@ -1,0 +1,7 @@
+<section class="notifications">
+<% notifications().forEach(function(notification){ %>
+    <p class="alert alert-<%= notification.level %>">
+    <%= notification.text %>
+    </p>
+<% }) %>
+</section>
