@@ -1,6 +1,6 @@
 <label for="field-<%=field %>"><%= field %></label>
 <% if (references[field]){ %>
-<select name="<%= field %>" id="field-<%=field %>" class="form-control">
+<select name="<%= fieldName(field) %>" id="field-<%=field %>" class="form-control">
     <% if (!document.schema.paths[field].options.required){ %>
     <option value=""></option>
     <% } %>
@@ -9,5 +9,5 @@
     <% }) %>
 </select>
 <% } else { %>
-<input name="<%= field %>" id="field-<%= field %>" type="text" value="<%= document[field] ? (document[field]._id || document[field]) : '' %>" class="form-control">
+<input name="<%= fieldName(field) %>" id="field-<%= field %>" type="text" value="<%= document[field] ? (document[field]._id || document[field]) : '' %>" class="form-control">
 <% } %>

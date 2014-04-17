@@ -79,4 +79,31 @@ $(function(){
     setTimeout(function(){
         $('.notifications .alert').fadeOut();
     }, 3000);
+
+    $(document).on('click', '.btn-action-edit', function(){
+        $('#bulk-edit-modal').modal('show');
+        return false;
+    });
+
+    var bulkEditLoading = $('#bulk-edit-modal .bulk-edit-form').html();
+
+    $('#bulk-edit-modal')
+        .on('show.bs.modal', function(){
+            var $this = $(this);
+            $this.find('.bulk-edit-form').load($this.data('content'), function(){
+                $this.find('.bulk-edit-form [name]')
+                    .prop('disabled', true)
+                    .parents('.form-group')
+                    .prepend('<input type="checkbox" class="toggle-enable-disable">');
+            });
+        })
+        .on('hidden.bs.modal', function(){
+            $(this).find('.modal-body').html(bulkEditLoading);
+        });
+
+    $(document).on('change', 'input[type="checkbox"].toggle-enable-disable', function(){
+        $(this).parents('.form-group')
+            .toggleClass('alert-info')
+            .find('[name]').prop('disabled', !$(this).prop('checked'));
+    });
 });

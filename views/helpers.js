@@ -24,11 +24,7 @@ module.exports.init = function(admin){
         res.locals.utils = require('../lib/utils');
 
         res.locals.readOnly = function(model, fieldName){
-            if (utils.isNotVirtual(model, fieldName)){
-                return false;
-            }
-            var field = utils.getField(model, fieldName);
-            return (!field.setters || !field.setters.length);
+            return utils.isReadOnly(model, fieldName);
         };
 
         res.locals.req = req;
@@ -87,6 +83,14 @@ module.exports.init = function(admin){
 
         res.locals.notifications = function(){
             return req.flash('notification');
+        };
+
+        res.locals.fieldName = function(field){
+            var prefix;
+            if (prefix = res.locals.fieldPrefix){
+                return prefix + '[' + field + ']'
+            }
+            return field;
         };
 
         res.locals = _.extend(res.locals, helpers);
