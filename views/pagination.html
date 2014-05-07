@@ -8,17 +8,17 @@
     <% if (search.isPage(1)) { %>
         <li class="disabled"><a href="#">&laquo;</a></li>
     <% } else { %>
-        <li><a href="<%=: search.withPage('prev') | queryString %>">&laquo;</a></li>
+        <li><a href="<%= queryString(search.withPage('prev')) %>">&laquo;</a></li>
     <% } %>
 
     <% for (;i <= lastPage; i++){ %>
-        <li class="<%= search.isPage(i) ? 'active' : '' %>"><a href="<%=: search.withPage(i) | queryString %>"><%= i %></a></li>
+        <li class="<%= search.isPage(i) ? 'active' : '' %>"><a href="<%= queryString(search.withPage(i)) %>"><%= i %></a></li>
     <% } %>
 
     <% if (search.isPage(lastPage)){ %>
         <li class="disabled"><a href="#">&raquo;</a></li>
     <% } else { %>
-        <li><a href="<%=: search.withPage('next') | queryString %>">&raquo;</a></li>
+        <li><a href="<%=: queryString(search.withPage('next')) %>">&raquo;</a></li>
     <% } %>
 
     </ul>

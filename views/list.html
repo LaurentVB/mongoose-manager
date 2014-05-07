@@ -71,7 +71,7 @@
                     <% if (utils.isVirtual(model, field)){ %>
                         <th><%= field %></th>
                     <% } else { %>
-                        <th><a href="<%=: search.with('sortField', field).with('sortDir', search.toggleSortDir(field)) | queryString %>" title="<%= search.currentSortDir(field) %>" class="<%= search.currentSortDir(field) %>"><%= field %></a></th>
+                        <th><a href="<%= queryString(search.with('sortField', field).with('sortDir', search.toggleSortDir(field))) %>" title="<%= search.currentSortDir(field) %>" class="<%= search.currentSortDir(field) %>"><%= field %></a></th>
                     <% } %>
                 <% }) %>
             </tr>

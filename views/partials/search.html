@@ -1,13 +1,13 @@
 <div class="clearfix">
     <div class="col-md-6">
         <form role="form" class="search-form">
-            <%-: search.without('q').without('where') | formInput %>
+            <%- formInput(search.without('q').without('where')) %>
             <div class="form-group">
                 <label for="search-term"><span class="glyphicon glyphicon-search"></span> Search</label>
                 <div class="input-group">
                     <input type="search" id="search-term" name="q" class="form-control" value="<%=: search.criteria.q | empty %>" placeholder="Your search term">
                     <span class="input-group-btn">
-                        <a href="<%=: search.without('where').without('q') | queryString %>" class="btn btn-primary reset"><span class="glyphicon glyphicon-remove"></span></a>
+                        <a href="<%= queryString(search.without('where').without('q')) %>" class="btn btn-primary reset"><span class="glyphicon glyphicon-remove"></span></a>
                     </span>
                 </div>
             </div>
@@ -18,7 +18,7 @@
     <div class="col-md-12">
         <ul class="selected-facets list-inline">
         <% search.eachCriteria(function(key, value){ %>
-            <li><a href="<%=: search.without(key, value) | queryString %>" class="label label-default"><%= key %>: <%= value %> <span class="glyphicon glyphicon-remove"></span></a></li>
+            <li><a href="<%= queryString(search.without(key, value)) %>" class="label label-default"><%= key %>: <%= value %> <span class="glyphicon glyphicon-remove"></span></a></li>
         <% }) %>
         </ul>
     </div>
@@ -30,13 +30,13 @@
             <div class="row">
                 <div class="col-md-6">
                     <form role="form" class="search-form">
-                        <%-: search.without('q').without('where') | formInput %>
+                        <%- formInput(search.without('q').without('where')) %>
                         <div class="form-group <%= search.errors.where ? 'has-error' : '' %>">
                             <label for="search-term" class="sr-only">Mongoose where clause</label>
                             <div class="input-group">
                                 <input type="search" id="where-clause" name="where" class="form-control" value="<%=: search.criteria.where | empty %>" placeholder="Mongoose where clause">
                                 <span class="input-group-btn">
-                                    <a href="<%=: search.without('where').without('q') | queryString %>" class="btn btn-primary reset"><span class="glyphicon glyphicon-remove"></span></a>
+                                    <a href="<%= queryString(search.without('where').without('q')) %>" class="btn btn-primary reset"><span class="glyphicon glyphicon-remove"></span></a>
                                 </span>
                             </div>
                             <% if (search.errors.where) { %>
