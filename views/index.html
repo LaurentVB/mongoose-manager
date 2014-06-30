@@ -9,3 +9,13 @@
     </li>
 <% }) %>
 </ul>
+<% if (extraMenus.length) { %>
+<hr>
+<ul class="list-unstyled">
+    <% extraMenus.forEach(function(extra){%>
+    <li>
+        <h2><a href="<%= extra.route %>"><%= extra.name %></a></h2>
+    </li>
+    <% }) %>
+</ul>
+<% } %>
