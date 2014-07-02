@@ -17,7 +17,10 @@ var models = [
     require('./models/Label').Label,
     require('./models/Record').Record
 ];
-var admin = new Admin(models);
+var options = {
+    secret: 'a secret string to use for cookie encryption' // replace this by a specific string for your app
+};
+var admin = new Admin(models, options);
 
 // an express app is now available in admin.app
 admin.app.listen(8080, function(){
