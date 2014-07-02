@@ -1,6 +1,6 @@
 {
   "name": "mongoose-manager",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "scripts": {
     "example": "supervisor --force-watch -i public,views example/app.js"
   },
