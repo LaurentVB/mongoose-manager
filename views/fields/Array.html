@@ -12,22 +12,29 @@
 %>
 <script id="list-<%= noColon(field) %>-item-template" type="text/template">
     <li class="form-group">
+        <% if (type[0].constructor && type[0].constructor.name == 'Schema' ){ %>
+        <%
+            document = _document_backup[field].create();
+        %>
+        <% include ../array-fields/Embedded.html %>
+        <% } else { %>
         <div class="input-group">
             <% if (embeddedName == 'Boolean') { %>
-            <% include ./Boolean.html %>
+                <% include ./Boolean.html %>
             <% } else if (embeddedName == 'Date') { %>
-            <% include ./Date.html %>
+                <% include ./Date.html %>
             <% } else if (embeddedName == 'Number') { %>
-            <% include ./Number.html %>
+                <% include ./Number.html %>
             <% } else if (embeddedName == 'String') { %>
-            <% include ../array-fields/String.html %>
+                <% include ../array-fields/String.html %>
             <% } else if (embeddedName == 'ObjectId') { %>
-            <% include ./ObjectId.html %>
+                <% include ./ObjectId.html %>
             <% } %>
             <span class="input-group-btn">
                 <a class="btn btn-danger" href="#remove-item"><span class="glyphicon glyphicon-remove"></span></a>
             </span>
         </div>
+        <% } %>
     </li>
 </script>
 <%
@@ -39,6 +46,9 @@
     <% if (document[field]){ %>
         <% document[field].forEach(function(document, i){ %>
         <li class="form-group">
+            <% if (type[0].constructor && type[0].constructor.name == 'Schema' ){ %>
+            <% include ../array-fields/Embedded.html %>
+            <% } else { %>
             <div class="input-group">
                 <% if (embeddedName == 'Boolean') { %>
                 <% include ./Boolean.html %>
@@ -55,6 +65,7 @@
                     <a class="btn btn-danger" href="#remove-item"><span class="glyphicon glyphicon-remove"></span></a>
                 </span>
             </div>
+            <% } %>
         </li>
         <% }) %>
     <% } %>

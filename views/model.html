@@ -12,7 +12,9 @@
 
 <form class="form col-md-6" method="post" action="<%= url(model.modelName, document.isNew ? null : document._id) %>">
     <fieldset>
-        <%- partial('partials/field.html', fields) %>
+        <% fields.forEach(function(field){ %>
+        <%- partial('./partials/field.html', {field: field, cache: true}) %>
+        <% }) %>
     </fieldset>
     <div class="form-group">
         <button type="submit" class="btn btn-primary" name="_method" value="<%= document.isNew ? 'POST' : 'PUT' %>">Save <%= model.modelName%></button> or <a href="<%= url(model.modelName) %>">cancel</a>

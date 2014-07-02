@@ -25,8 +25,8 @@ $(function(){
     $(document).on('click', '[href^="#add-item"]', function(){
         var $ol = $(this).siblings('ol'),
             templateSelector = $ol.data('template'),
-            i = $ol.find('.form-group').length,
-            html = $(templateSelector).text().replace('{{i}}', i);
+            i = $ol.find('>.form-group').length,
+            html = $(templateSelector).text().replace(/{{i}}/gi, i);
         $ol.append(html);
         updateCount($ol);
         return false;

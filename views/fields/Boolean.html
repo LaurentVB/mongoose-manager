@@ -1,5 +1,5 @@
 <div class="checkbox">
     <label>
-        <input name="<%= fieldName(field) %>" type="checkbox" <%=: document[field] ? 'checked' : '' %>>
+        <input name="<%= prefix %><%= fieldName(field) %><%= suffix %>" type="checkbox" <%=: document[field] ? 'checked' : '' %>>
         <%= field %></label>
 </div>

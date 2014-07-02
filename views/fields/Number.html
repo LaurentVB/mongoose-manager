@@ -1,2 +1,2 @@
 <label for="field-<%=field %>"><%= field %></label>
-<input name="<%= fieldName(field) %>" id="field-<%=field %>" type="text" value="<%=: document[field] | empty %>" class="form-control">
+<input name="<%= prefix %><%= fieldName(field) %><%= suffix %>" id="field-<%=field %>" type="text" value="<%=: document[field] | empty %>" class="form-control">

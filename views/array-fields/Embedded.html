@@ -1,0 +1,12 @@
+<div class="array-field embedded-model">
+    <a class="btn btn-danger" href="#remove-item" title="Remove item"><span class="glyphicon glyphicon-remove"></span></a>
+    <% utils.getFields(type[0]).forEach(function(f){ %>
+    <%- partial('./partials/field.html', {
+            field: f,
+            prefix: fieldName(field) +'[' + i + '][',
+            suffix: ']',
+            document: document,
+            cache: true
+    }) %>
+    <% }); %>
+</div>

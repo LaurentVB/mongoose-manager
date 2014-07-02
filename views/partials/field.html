@@ -1,6 +1,12 @@
 <%
     var type = getField(document, field).options.type,
     name = type ? type.name : 'String';
+    if (typeof(prefix) == 'undefined') {
+        prefix = '';
+    }
+    if (typeof(suffix) == 'undefined') {
+        suffix = '';
+    }
 %>
 <div class="form-group">
     <% if (name == 'Boolean') { %>

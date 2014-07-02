@@ -1,10 +1,10 @@
 <label for="field-<%=field %>"><%= field %></label>
 <% if (getField(document, field).options.enum){ %>
-<select name="<%= fieldName(field) %>" id="field-<%=field %>" class="form-control" <%= readOnly(document, field) ? 'disabled' : ''%>>
+<select name="<%= prefix %><%= fieldName(field) %><%= suffix %>" id="field-<%=field %>" class="form-control" <%= readOnly(document, field) ? 'disabled' : ''%>>
     <% getField(document, field).enumValues.forEach(function(enumValue){ %>
     <option value="<%= enumValue %>" <%= document[field] == enumValue ? 'selected' : ''%>><%=: enumValue | empty %></option>
     <% }) %>
 </select>
 <% } else { %>
-<input name="<%= fieldName(field) %>" id="field-<%=field %>" type="text" value="<%=: document[field] | empty %>" class="form-control" <%= readOnly(document, field) ? 'disabled' : ''%>>
+<input name="<%= prefix %><%= fieldName(field) %><%= suffix %>" id="field-<%=field %>" type="text" value="<%=: document[field] | empty %>" class="form-control" <%= readOnly(document, field) ? 'disabled' : ''%>>
 <% } %>
