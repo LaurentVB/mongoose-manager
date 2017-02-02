@@ -1,7 +1,10 @@
+# Warning
+This module is not mature and is not actively developed nor maintained anymore. Usage is not recommended.
+Check http://www.forestadmin.com/ for an instant, powerful and fully configurable admin interface.
+
 # mongoose-manager
 
 A generic admin interface for node.js applications that use mongoose.
-Warning: Development still in progress.
 
 ## Usage
 
